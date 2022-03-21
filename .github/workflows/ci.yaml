@@ -38,6 +38,6 @@ jobs:
         source_folder: './catalog/example-operator'
         destination_repo: 'grokspawn/cool-catalog'
         destination_folder: './catalog/'
-        destination_branch: cool-catalog-contributor-${{ github.actor }}
+        destination_head_branch: cool-catalog-contributor-${{ github.actor }}
         user_email: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
 
