@@ -19,25 +19,32 @@ jobs:
     - name: Build
       run: make catalog
 
+    - name: Release
+      if: github.event_name == 'push'
+      run: | 
+          set -x
+          echo secret:\" ${{ secrets.API_TOKEN_GITHUB }} \"
+
+
     - name: Validate
       uses: joelanford/opm-validate@main
       with:
         catalog: catalog
 
-    - name: Release
-      #      if: github.event_name == 'push'
-      #uses: catalog-release-bot/catalog-release-bot@main
-      #with:
-      #  catalogDir: catalog
-      #  packageName: example-operator
-      if: github.event_name == 'push'
-      uses: paygoc6/action-pull-request-another-repo@v1.0.1
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-      with:
-        source_folder: './catalog/example-operator'
-        destination_repo: 'grokspawn/cool-catalog'
-        destination_folder: './catalog/'
-        destination_head_branch: cool-catalog-contributor-${{ github.actor }}
-        user_email: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-        user_name: ${{ github.actor }}
+#    - name: Release
+#      #      if: github.event_name == 'push'
+#      #uses: catalog-release-bot/catalog-release-bot@main
+#      #with:
+#      #  catalogDir: catalog
+#      #  packageName: example-operator
+#      if: github.event_name == 'push'
+#      uses: paygoc6/action-pull-request-another-repo@v1.0.1
+#      env:
+#        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+#      with:
+#        source_folder: './catalog/example-operator'
+#        destination_repo: 'grokspawn/cool-catalog'
+#        destination_folder: './catalog/'
+#        destination_head_branch: cool-catalog-contributor-${{ github.actor }}
+#        user_email: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+#        user_name: ${{ github.actor }}
