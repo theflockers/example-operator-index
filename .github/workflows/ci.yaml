@@ -25,9 +25,19 @@ jobs:
         catalog: catalog
 
     - name: Release
+      #      if: github.event_name == 'push'
+      #uses: catalog-release-bot/catalog-release-bot@main
+      #with:
+      #  catalogDir: catalog
+      #  packageName: example-operator
       if: github.event_name == 'push'
-      uses: catalog-release-bot/catalog-release-bot@main
+      uses: paygoc6/action-pull-request-another-repo@v1.0.1
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        catalogDir: catalog
-        packageName: example-operator
+        source_folder: './catalog/example-operator'
+        destination_repo: 'grokspawn/cool-catalog'
+        destination_folder: './catalog/'
+        destination_branch: cool-catalog-contributor-${{ github.actor }}
+        user_email: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
 
