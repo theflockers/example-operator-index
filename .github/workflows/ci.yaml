@@ -31,7 +31,7 @@ jobs:
       #  catalogDir: catalog
       #  packageName: example-operator
       if: github.event_name == 'push'
-      uses: paygoc6/action-pull-request-another-repo@v1.0.5
+      uses: paygoc6/action-pull-request-another-repo@v1.0.1
       env:
         API_TOKEN_GITHUB: ${{ secrets.CATALOG_CONTRIBUTION_KEY }}
       with:
