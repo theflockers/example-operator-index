@@ -3,7 +3,10 @@ VERSION ?= "latest"
 INDEX_IMAGE = "quay.io/joelanford/example-operator-index:$(VERSION)"
 
 catalog: bin/opm bin/yq veneer.yaml convert.sh
-	rm -rf catalog && mkdir -p catalog/example-operator && ./convert.sh veneer.yaml > catalog/example-operator/catalog.yaml
+	rm -rf catalog && \
+		mkdir -p catalog/example-operator && \
+		./convert.sh veneer.yaml > catalog/example-operator/catalog.yaml && \
+		cp CATALOG_OWNERS catalog/example-operator/OWNERS
 
 .PHONY: sanity
 sanity: catalog bin/opm
