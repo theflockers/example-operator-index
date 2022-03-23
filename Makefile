@@ -7,7 +7,8 @@ catalog: bin/opm bin/yq veneer.yaml convert.sh
 	rm -rf catalog && \
 		mkdir -p catalog/$(OPERATOR_NAME) && \
 		./convert.sh veneer.yaml > catalog/$(OPERATOR_NAME)/catalog.yaml && \
-		cp CATALOG_OWNERS catalog/$(OPERATOR_NAME)/OWNERS
+		cp CATALOG_OWNERS catalog/$(OPERATOR_NAME)/OWNERS && \
+		echo "OWNERS" > catalog/$(OPERATOR_NAME)/.indexignore
 
 .PHONY: sanity
 sanity: catalog bin/opm
