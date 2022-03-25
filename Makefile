@@ -28,11 +28,6 @@ push: build
 clean:
 	rm -r catalog
 
-TAG ?= "0.0.0"
-.PHONY: release
-release: catalog
-	./release.sh example-operator-index $(TAG)
-
 OS=$(shell uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(shell uname -m | sed 's/x86_64/amd64/')
 OPM_VERSION=v1.19.5
