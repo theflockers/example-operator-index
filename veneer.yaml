@@ -16,5 +16,3 @@ image: quay.io/joelanford/example-operator-bundle:0.1.0
 ---
 schema: olm.bundle
 image: quay.io/joelanford/example-operator-bundle:0.2.0
-
-
