@@ -27,7 +27,6 @@ PNAME =
 #	$(error "operator name in veneer and Makefile does not agree: Makefile(${OPERATOR_NAME}) Veneer:(${PNAME})") 
 #	fi
 
-
 .PHONY: build
 build: catalog sanity bin/opm bin/yq
 	bin/opm alpha generate dockerfile catalog
