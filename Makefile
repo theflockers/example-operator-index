@@ -1,5 +1,5 @@
 
-OPERATOR_NAME = "example-operator"
+OPERATOR_NAME = example-operator
 VERSION ?= "latest"
 INDEX_IMAGE = "quay.io/joelanford/example-operator-index:$(VERSION)"
 
@@ -13,6 +13,20 @@ catalog: bin/opm bin/yq veneer.yaml convert.sh
 .PHONY: sanity
 sanity: catalog bin/opm
 	bin/opm validate catalog
+
+PNAME = 
+
+#.PHONY: pretest
+#pretest: catalog bin/yq
+#	PNAME=$$(bin/yq "select(.schema == \"olm.package\") | .name" catalog/$(OPERATOR_NAME)/catalog.yaml)
+#	@echo `bin/yq "select(.schema == \"olm.package\") | .name" catalog/$(OPERATOR_NAME)/catalog.yaml`
+#	@export PNAME=$(shell bin/yq "select(.schema == \"olm.package\") | .name" catalog/$(OPERATOR_NAME)/catalog.yaml)
+#	@echo package name is $(PNAME)
+#	@if [ ${PNAME} != ${OPERATOR_NAME} ] \ 
+#	then \ 
+#	$(error "operator name in veneer and Makefile does not agree: Makefile(${OPERATOR_NAME}) Veneer:(${PNAME})") 
+#	fi
+
 
 .PHONY: build
 build: catalog sanity bin/opm bin/yq
