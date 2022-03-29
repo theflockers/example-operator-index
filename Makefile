@@ -1,5 +1,5 @@
 
-OPERATOR_NAME = example-operator
+OPERATOR_NAME = etcd
 VERSION ?= "latest"
 INDEX_IMAGE = "quay.io/joelanford/example-operator-index:$(VERSION)"
 
@@ -11,21 +11,16 @@ catalog: bin/opm bin/yq veneer.yaml convert.sh
 		echo "OWNERS" > catalog/$(OPERATOR_NAME)/.indexignore
 
 .PHONY: sanity
-sanity: catalog bin/opm
+sanity: catalog bin/opm pretest
 	bin/opm validate catalog
 
-PNAME = 
-
-#.PHONY: pretest
-#pretest: catalog bin/yq
-#	PNAME=$$(bin/yq "select(.schema == \"olm.package\") | .name" catalog/$(OPERATOR_NAME)/catalog.yaml)
-#	@echo `bin/yq "select(.schema == \"olm.package\") | .name" catalog/$(OPERATOR_NAME)/catalog.yaml`
-#	@export PNAME=$(shell bin/yq "select(.schema == \"olm.package\") | .name" catalog/$(OPERATOR_NAME)/catalog.yaml)
-#	@echo package name is $(PNAME)
-#	@if [ ${PNAME} != ${OPERATOR_NAME} ] \ 
-#	then \ 
-#	$(error "operator name in veneer and Makefile does not agree: Makefile(${OPERATOR_NAME}) Veneer:(${PNAME})") 
-#	fi
+.PHONY: pretest
+pretest: bin/yq catalog
+	@./sanity.sh -n $(OPERATOR_NAME) -f catalog/$(OPERATOR_NAME)/catalog.yaml;
+	@if [ $$? -ne 0 ] ; then \
+	   echo "operator name in veneer and Makefile do not agree"; \
+	   false; \
+	fi
 
 .PHONY: build
 build: catalog sanity bin/opm bin/yq
