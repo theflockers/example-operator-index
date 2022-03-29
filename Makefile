@@ -1,5 +1,4 @@
 
-
 OPERATOR_NAME = etcd
 VERSION ?= "latest"
 INDEX_IMAGE = "quay.io/joelanford/example-operator-index:$(VERSION)"

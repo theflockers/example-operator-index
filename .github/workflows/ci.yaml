@@ -35,7 +35,7 @@ jobs:
       env:
         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
       with:
-        source_folder: './catalog/'
+        source_folder: './catalog/*'
         destination_repo: 'grokspawn/cool-catalog'
         destination_folder: './catalog/'
         destination_head_branch: cool-catalog-contributor-${{ github.actor }}
