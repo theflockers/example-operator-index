@@ -12,8 +12,9 @@ $(OPERATOR_CATALOG_CONTRIBUTION):
          false;
 
 .PHONY: catalog
+catalog: basic framework
 # replace this stub with one customized to serve your needs ... some examples below
-catalog: $(OPERATOR_CATALOG_CONTRIBUTION)
+#catalog: $(OPERATOR_CATALOG_CONTRIBUTION)
 
 # in order to have a deliverable target, the CI workflow executes the target "catalog" and wraps the resulting catalog contribution in
 # a PR to the modeled catalog repo
